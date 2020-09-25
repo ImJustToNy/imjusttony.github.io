@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AGH Kalkulator</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" integrity="sha256-aPeK/N8IHpHsvPBCf49iVKMdusfobKo2oxF8lRruWJg=" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+</head>
+<body>
+    <div id="app">
+        <section class="section">
+            <div class="container">
+                <h1 class="title">Kalkulator AGH</h1>
+
+                <div class="columns">
+                    <div v-for="(subject, index) in subjects">
+                        <div class="column">
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input class="input" type="number" v-model.number="subject.value" :placeholder="subjectPlaceholder(index)">
+                                </div>
+                                <div class="control">
+                                    <button class="button is-danger" v-bind:disabled="subjects.length < 2" @click="removeSubject(index)">
+                                        <span class="icon">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                       <input class="input" type="number" v-model.number="mathBase" placeholder="Matematyka podstawowa">
+                    </div>
+                </div>
+
+                <button class="button" v-bind:disabled="subjects.length >= 3" @click="addSubject">
+                    <span class="icon">
+                        <i class="fas fa-plus"></i>
+                    </span>
+
+                    <span>
+                        Dodaj przedmiot główny
+                    </span>
+                </button>
+
+                <div v-html="result"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                subjects: [{
+                    value: null,
+                }],
+                mathBase: null,
+            },
+            methods: {
+                subjectPlaceholder: function (index) {
+                    return 'Przedmiot główny #'+parseInt(index+1)
+                },
+                addSubject: function () {
+                    this.subjects.push({
+                        value: null,
+                    })
+                },
+                removeSubject: function (index) {
+                    this.subjects.splice(index, 1)
+                },
+            },
+            computed: {
+                result: function () {
+                    let M = 2 * this.mathBase
+                    let subject = Math.max(...this.subjects.map(function (subject) {
+                        return subject.value
+                    }))
+
+                    if (! subject || ! M) {
+                        return 'Proszę wypełnić wszystkie pola'
+                    }
+
+                    if (M > 100) {
+                        return 'Wynik matematyki podstawowej ponad 100'
+                    }
+
+                    let G
+
+                    if (subject < 30) {
+                        G = subject
+                    } else if (subject <= 80) {
+                        G = subject + (2 * (subject - 30))
+                    } else if (subject <= 100) {
+                        G = subject + 100
+                    } else {
+                        return 'Wynik przedmiotu głównego ponad 100'
+                    }
+
+                    return 'Najlepszy wynik z przedmiotu głównego: ' + subject + ', rezultat: <b>'+ (4 * G + M) + '</b>'
+                },
+            },
+        })
+    </script>
+</body>
+</html>
