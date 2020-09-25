@@ -23,7 +23,7 @@
                                     <input class="input" type="number" v-model.number="subject.value" :placeholder="subjectPlaceholder(index)">
                                 </div>
                                 <div class="control">
-                                    <button class="button is-danger" v-bind:disabled="subjects.length < 2" @click="removeSubject(index)">
+                                    <button class="button is-danger" :disabled="subjects.length < 2" @click="removeSubject(index)">
                                         <span class="icon">
                                             <i class="fas fa-trash-alt"></i>
                                         </span>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <button class="button" v-bind:disabled="subjects.length >= 3" @click="addSubject">
+                <button class="button" :disabled="subjects.length >= 3" @click="addSubject">
                     <span class="icon">
                         <i class="fas fa-plus"></i>
                     </span>
