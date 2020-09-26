@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>AGH Kalkulator</title>
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" integrity="sha256-aPeK/N8IHpHsvPBCf49iVKMdusfobKo2oxF8lRruWJg=" crossorigin="anonymous">
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
 </head>
+
 <body>
     <div id="app">
         <section class="section">
@@ -34,7 +36,7 @@
                     </div>
 
                     <div class="column">
-                       <input class="input" type="number" v-model.number="mathBase" placeholder="Matematyka podstawowa">
+                        <input class="input" type="number" v-model.number="mathBase" placeholder="Matematyka podstawowa">
                     </div>
                 </div>
 
@@ -65,26 +67,26 @@
                 mathBase: null,
             },
             methods: {
-                subjectPlaceholder: function (index) {
-                    return 'Przedmiot główny #'+parseInt(index+1)
+                subjectPlaceholder: function(index) {
+                    return 'Przedmiot główny #' + parseInt(index + 1)
                 },
-                addSubject: function () {
+                addSubject: function() {
                     this.subjects.push({
                         value: null,
                     })
                 },
-                removeSubject: function (index) {
+                removeSubject: function(index) {
                     this.subjects.splice(index, 1)
                 },
             },
             computed: {
-                result: function () {
+                result: function() {
                     let M = 2 * this.mathBase
-                    let subject = Math.max(...this.subjects.map(function (subject) {
+                    let subject = Math.max(...this.subjects.map(function(subject) {
                         return subject.value
                     }))
 
-                    if (! subject || ! M) {
+                    if (!subject || !M) {
                         return 'Proszę wypełnić wszystkie pola'
                     }
 
@@ -104,10 +106,11 @@
                         return 'Wynik przedmiotu głównego ponad 100'
                     }
 
-                    return 'Najlepszy wynik z przedmiotu głównego: ' + subject + ', rezultat: <b>'+ (4 * G + M) + '</b>'
+                    return 'Najlepszy wynik z przedmiotu głównego: ' + subject + ', rezultat: <b>' + (4 * G + M) + '</b>'
                 },
             },
         })
     </script>
 </body>
+
 </html>
